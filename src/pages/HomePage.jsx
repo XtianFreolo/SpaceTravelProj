@@ -1,11 +1,13 @@
 
-
+import styles from "./HomePage.module.css";
 
 function HomePage() {
     return (
-        <div>
+        <div className={styles.container}>
             <h1>Welcome to Xtian's Space station mate</h1>
-            <p>
+
+            <p className={styles.box}>
+
                 Think of this as your Space 7-11
                 Explore the universe with us!
                 Here we have everything you need for your
@@ -17,7 +19,8 @@ function HomePage() {
             </p>
             <br></br>
 
-            <p>
+            <p className={styles.box}>
+
                 <strong>Note:</strong>
                 If you want to rent a spaceship, Please go
                 to the Spaceship Hangar and fill out a form
@@ -26,7 +29,8 @@ function HomePage() {
             </p>
             <br></br>
 
-            <p>
+            <p className={styles.box}>
+
                 <strong>Note:</strong>
                 To explore a planet, click the planet
                 you want to explore at our planet section and
