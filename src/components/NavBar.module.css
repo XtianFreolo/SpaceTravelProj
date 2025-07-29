@@ -1,0 +1,22 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px 0;
+    background-color: #1a1a2e;
+}
+
+
+navItem {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background 0.3 ease;
+}
+
+.navItem:hover {
+    background-color: #16213e;
+}
