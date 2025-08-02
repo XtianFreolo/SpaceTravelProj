@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import SpaceTravelApi from "../api/SpaceTravelApi";
-import styles from "./SpaceshipPage.module.css"; // 👈 import your CSS module
+import SpaceTravelApi from "../services/SpaceTravelApi";
+import styles from "./SpaceshipPage.module.css";
 
 const SpaceshipPage = () => {
     const [spaceships, setSpaceships] = useState([]);
