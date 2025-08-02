@@ -5,11 +5,11 @@ import styles from "../pages/PlanetsPage.module.css";
 const PlanetCard = ({
     planet,
     isSelected,
-    hasShip,
     onPlanetClick,
-    onShipClick,
-    isShipSelected,
-    setIsShipSelected
+    ships,
+    selectedShipId,
+    onShipSelect,
+    onShipMove
 }) => {
     const cardClass = isSelected
         ? `${styles.planetCard} ${styles.selected}`
@@ -22,16 +22,23 @@ const PlanetCard = ({
                 <h3>{planet.name}</h3>
                 <p>Population: {planet.currentPopulation.toLocaleString()}</p>
             </div>
-            {hasShip && (
-                <SpacecraftIcon
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setIsShipSelected(true);
-                        onShipClick();
-                    }}
-                    isSelected={isShipSelected}
-                />
-            )}
+            <div className={styles.shipStack}>
+                {ships.map((ship) => (
+                    <SpacecraftIcon
+                        key={ship.id}
+                        ship={ship}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (selectedShipId === ship.id) {
+                                onShipMove(ship.id); // move to selected planet
+                            } else {
+                                onShipSelect(ship.id); // select this ship
+                            }
+                        }}
+                        isSelected={selectedShipId === ship.id}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

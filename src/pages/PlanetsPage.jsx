@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import SpaceTravelMockApi from "../services/SpaceTravelMockApi";
 import PlanetCard from "../components/PlanetCard";
+import styles from "./PlanetsPage.module.css";
+
 
 
 const PlanetsPage = () => {
     const [planets, setPlanets] = useState([]);
-    const [spacecraft, setSpacecraft] = useState([]);
+    const [spacecrafts, setSpacecrafts] = useState([]);
     const [selectedPlanetId, setSelectedPlanetId] = useState(null);
+    const [selectedShipId, setselectedShipId] = useState(null);
     const [isShipSelected, setIsShipSelected] = useState(false);
 
     useEffect(() => {
@@ -15,7 +18,7 @@ const PlanetsPage = () => {
             const shipsRes = await SpaceTravelMockApi.getSpacecrafts();
             if (!planetsRes.isError && !shipsRes.isError) {
                 setPlanets(planetsRes.data);
-                setSpacecraft(shipsRes.data[0]);
+                setSpacecraft(shipsRes.data);
             }
         };
         fetchData();
@@ -27,10 +30,12 @@ const PlanetsPage = () => {
         setIsShipSelected(false);
     };
 
-    const handleShipClick = async () => {
+    const handleShipClick = async (shipId) => {
         if (selectedPlanetId == null || spacecraft == null) return;
 
-        if (spacecraft.currentLocation === selectedPlanetId) return;
+        const ship = spacecrafts.find(s => s.id === shipId);
+
+        if (!ship || ship.currentLocation === selectedPlanetId) return;
 
         const res = await SpaceTravelMockApi.sendSpacecraftToPlanet({
             spacecraftId: spacecraft.id,
@@ -40,7 +45,7 @@ const PlanetsPage = () => {
         if (!res.isError) {
 
             const planetRes = await SpaceTravelMockApi.getPlanets();
-            const updatedShip = await SpaceTravelMockApi.getSpacecraftById({ id: spacecraft.id });
+            const updatedShip = await SpaceTravelMockApi.getSpacecraftById({ id: spacecrafts.id });
             setPlanets(planetRes.data);
             setSpacecraft(updatedShip.data);
             setSelectedPlanetId(null);
@@ -55,18 +60,26 @@ const PlanetsPage = () => {
 
     return (
         <div className={styles.grid}>
-            {planets.map((planet) => (
-                <PlanetCard
-                    key={planet.id}
-                    planet={planet}
-                    isSelected={selectedPlanetId === planet.id}
-                    hasShip={spacecraft?.currentLocation === planet.id}
-                    onPlanetClick={() => handlePlanetClick(planet.id)}
-                    onShipClick={handleShipClick}
-                    isShipSelected={isShipSelected}
-                    setIsShipSelected={setIsShipSelected}
-                />
-            ))}
+            {planets.map((planet) => {
+                const shipsOnThisPlanet = spacecrafts.filter(
+                    (ship) => ship.currentLocation === planet.id
+                );
+
+                return (
+
+                    <PlanetCard
+                        key={planet.id}
+                        planet={planet}
+                        isSelected={selectedPlanetId === planet.id}
+                        hasShip={spacecrafts?.currentLocation === planet.id}
+                        onPlanetClick={() => handlePlanetClick(planet.id)}
+                        onShipClick={handleShipClick}
+                        isShipSelected={isShipSelected}
+                        setIsShipSelected={setIsShipSelected}
+                    />
+                );
+
+            })}
 
         </div>
     );
