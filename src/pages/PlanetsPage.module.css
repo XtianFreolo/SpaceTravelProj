@@ -1,0 +1,51 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.planetCard {
+    border: 4px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.planetCard:hover {
+    transform: scale(1.03);
+}
+
+.selected {
+    border-color: red;
+}
+
+.planetImage {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.info {
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.shipContainer {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.shipImage {
+    height: 48px;
+    cursor: pointer;
+}
+
+.shipSelected {
+    outline: 4px solid blue;
+    border-radius: 50%;
+}
