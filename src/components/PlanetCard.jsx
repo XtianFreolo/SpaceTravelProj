@@ -9,7 +9,7 @@ const PlanetCard = ({
     ships,
     selectedShipId,
     onShipSelect,
-    onShipMove
+    onShipMove,
 }) => {
     const cardClass = isSelected
         ? `${styles.planetCard} ${styles.selected}`
@@ -27,15 +27,15 @@ const PlanetCard = ({
                     <SpacecraftIcon
                         key={ship.id}
                         ship={ship}
+                        isSelected={selectedShipId === ship.id}
                         onClick={(e) => {
                             e.stopPropagation();
                             if (selectedShipId === ship.id) {
-                                onShipMove(ship.id); // move to selected planet
+                                onShipMove(ship.id);
                             } else {
-                                onShipSelect(ship.id); // select this ship
+                                onShipSelect(ship.id);
                             }
                         }}
-                        isSelected={selectedShipId === ship.id}
                     />
                 ))}
             </div>

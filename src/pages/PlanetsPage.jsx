@@ -3,14 +3,11 @@ import SpaceTravelMockApi from "../services/SpaceTravelMockApi";
 import PlanetCard from "../components/PlanetCard";
 import styles from "./PlanetsPage.module.css";
 
-
-
 const PlanetsPage = () => {
     const [planets, setPlanets] = useState([]);
     const [spacecrafts, setSpacecrafts] = useState([]);
     const [selectedPlanetId, setSelectedPlanetId] = useState(null);
-    const [selectedShipId, setselectedShipId] = useState(null);
-    const [isShipSelected, setIsShipSelected] = useState(false);
+    const [selectedShipId, setSelectedShipId] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -18,45 +15,35 @@ const PlanetsPage = () => {
             const shipsRes = await SpaceTravelMockApi.getSpacecrafts();
             if (!planetsRes.isError && !shipsRes.isError) {
                 setPlanets(planetsRes.data);
-                setSpacecraft(shipsRes.data);
+                setSpacecrafts(shipsRes.data);
             }
         };
+
         fetchData();
     }, []);
 
-
-    const handlePlanetClick = (planetId) => {
-        setSelectedPlanetId(planetId);
-        setIsShipSelected(false);
-    };
-
     const handleShipClick = async (shipId) => {
-        if (selectedPlanetId == null || spacecraft == null) return;
+        if (selectedPlanetId == null) return;
 
-        const ship = spacecrafts.find(s => s.id === shipId);
-
+        const ship = spacecrafts.find((s) => s.id === shipId);
         if (!ship || ship.currentLocation === selectedPlanetId) return;
 
         const res = await SpaceTravelMockApi.sendSpacecraftToPlanet({
-            spacecraftId: spacecraft.id,
+            spacecraftId: ship.id,
             targetPlanetId: selectedPlanetId,
         });
 
         if (!res.isError) {
-
-            const planetRes = await SpaceTravelMockApi.getPlanets();
-            const updatedShip = await SpaceTravelMockApi.getSpacecraftById({ id: spacecrafts.id });
-            setPlanets(planetRes.data);
-            setSpacecraft(updatedShip.data);
+            const planetsRes = await SpaceTravelMockApi.getPlanets();
+            const shipsRes = await SpaceTravelMockApi.getSpacecrafts();
+            setPlanets(planetsRes.data);
+            setSpacecrafts(shipsRes.data);
             setSelectedPlanetId(null);
-            setIsShipSelected(false);
+            setSelectedShipId(null);
         } else {
-            alert(res.data.message || "Sorry, Spaceship needs an oilchange.. wtf");
+            alert(res.data.message || "Failed to move ship.");
         }
-
-
     };
-
 
     return (
         <div className={styles.grid}>
@@ -66,26 +53,23 @@ const PlanetsPage = () => {
                 );
 
                 return (
-
                     <PlanetCard
                         key={planet.id}
                         planet={planet}
                         isSelected={selectedPlanetId === planet.id}
-                        hasShip={spacecrafts?.currentLocation === planet.id}
-                        onPlanetClick={() => handlePlanetClick(planet.id)}
-                        onShipClick={handleShipClick}
-                        isShipSelected={isShipSelected}
-                        setIsShipSelected={setIsShipSelected}
+                        onPlanetClick={() => {
+                            setSelectedPlanetId(planet.id);
+                            setSelectedShipId(null);
+                        }}
+                        ships={shipsOnThisPlanet}
+                        selectedShipId={selectedShipId}
+                        onShipSelect={setSelectedShipId}
+                        onShipMove={handleShipClick}
                     />
                 );
-
             })}
-
         </div>
     );
-
 };
-
-
 
 export default PlanetsPage;
