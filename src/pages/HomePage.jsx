@@ -26,6 +26,9 @@ function HomePage() {
                 to the Spaceship Hangar and fill out a form
                 to request a spaceship.
                 Once you submit the form, our team will review
+                and see if we can give you the ship. Its best if you send us
+                a picture of the ship so that we can retrieve it
+                as exact as possible.
             </p>
             <br></br>
 
@@ -36,7 +39,9 @@ function HomePage() {
                 you want to explore at our planet section and
                 when the planet border goes green, thats a sign
                 for your spaceship to land, click your spaceship
-                in the page and it will land on the planet.
+                that you want to go to the planet. Once both Planet and
+                Ship are highlighted, click the ship again to confirm everything
+                and the ship will travel to the Desired planet.
             </p>
 
 

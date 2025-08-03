@@ -1,20 +1,29 @@
 .navbar {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem 2rem;
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 15px 0;
-    background-color: #1a1a2e;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dotted #00ffff;
 }
 
 
-navItem {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: bold;
-    padding: 10px 20px;
+.navbar button {
+    background-color: transparent;
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
     border-radius: 8px;
-    transition: background 0.3 ease;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+
+
+.navbar button:hover {
+    background-color: #00ffff;
+    color: black;
 }
 
 .navItem:hover {
