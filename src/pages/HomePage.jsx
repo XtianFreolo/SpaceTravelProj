@@ -37,10 +37,10 @@ function HomePage() {
                 <strong>Note:</strong>
                 To explore a planet, click the planet
                 you want to explore at our planet section and
-                when the planet border goes green, thats a sign
+                when the planet border goes <span className={styles.greenText}>green</span>, thats a sign
                 for your spaceship to land, click your spaceship
-                that you want to go to the planet. Once both Planet and
-                Ship are highlighted, click the ship again to confirm everything
+                that you want to go to the planet. Once <span className={styles.greenText}>both Planet and
+                    Ship are highlighted green</span>, click the ship again to confirm everything
                 and the ship will travel to the Desired planet.
             </p>
 

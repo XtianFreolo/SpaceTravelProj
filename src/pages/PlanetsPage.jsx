@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SpaceTravelMockApi from "../services/SpaceTravelMockApi";
 import PlanetCard from "../components/PlanetCard";
 import styles from "./PlanetsPage.module.css";
-
+import Loader from "../components/Loader.jsx";
 
 
 
@@ -12,17 +12,20 @@ const PlanetsPage = () => {
     const [spacecrafts, setSpacecrafts] = useState([]);
     const [selectedPlanetId, setSelectedPlanetId] = useState(null);
     const [selectedShipId, setSelectedShipId] = useState(null);
-
-    // const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
+
+            setLoading(true);
+
             const planetsRes = await SpaceTravelMockApi.getPlanets();
             const shipsRes = await SpaceTravelMockApi.getSpacecrafts();
             if (!planetsRes.isError && !shipsRes.isError) {
                 setPlanets(planetsRes.data);
                 setSpacecrafts(shipsRes.data);
             }
+            setLoading(false);
         };
 
         fetchData();
@@ -36,7 +39,7 @@ const PlanetsPage = () => {
         if (!ship || ship.currentLocation === selectedPlanetId) return;
 
 
-        // setLoading(true);
+        setLoading(true);
 
         const res = await SpaceTravelMockApi.sendSpacecraftToPlanet({
             spacecraftId: ship.id,
@@ -54,11 +57,12 @@ const PlanetsPage = () => {
             alert(res.data.message || "Failed to move ship.");
         }
 
-        // setLoading(false);
+        setLoading(false);
     };
 
     return (
         <div className={styles.page}>
+            {loading && <Loader />}
             <div className={styles.grid}>
                 {planets.map((planet) => {
                     const shipsOnThisPlanet = spacecrafts.filter(

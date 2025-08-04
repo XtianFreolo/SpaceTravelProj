@@ -1,6 +1,6 @@
 import { useLocation, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Loader from "./Loading.jsx";
+import Loader from "./Loader.jsx";
 import NavBar from "./NavBar.jsx";
 
 const Layout = () => {

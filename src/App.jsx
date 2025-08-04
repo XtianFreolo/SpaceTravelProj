@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage.jsx";
 import SpaceshipPage from "./pages/SpaceshipPage.jsx";
 import PlanetsPage from "./pages/PlanetsPage.jsx";
 import Layout from "./components/Layout.jsx";
-import Loader from "./components/Loading.jsx";
+import Loader from "./components/Loader.jsx";
 
 
 function App() {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SpaceTravelApi from "../services/SpaceTravelApi";
 import styles from "./SpaceshipPage.module.css";
+import Loader from "../components/Loader.jsx";
 
 
 const SpaceshipPage = () => {
@@ -9,7 +10,7 @@ const SpaceshipPage = () => {
     const [capacity, setCapacity] = useState("");
     const [description, setDescription] = useState("");
     const [pictureUrl, setPictureUrl] = useState("");
-
+    const [loading, setLoading] = useState(false);
 
     const fetchSpaceships = async () => {
 
@@ -29,6 +30,7 @@ const SpaceshipPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
 
         const res = await SpaceTravelApi.buildSpacecraft({
@@ -48,11 +50,12 @@ const SpaceshipPage = () => {
             alert("Error creating spacecraft: " + res.data);
 
         }
+        setLoading(false);
     };
 
     const handleDelete = async (id) => {
 
-
+        setLoading(true);
         const res = await SpaceTravelApi.destroySpacecraftById({ id });
         if (!res.isError) {
             fetchSpaceships();
@@ -60,11 +63,12 @@ const SpaceshipPage = () => {
             alert("Error deleting spacecraft: " + res.data);
 
         }
+        setLoading(false);
     };
 
     return (
         <div className={styles.container}>
-
+            {loading && <Loader />}
             <h1 className={styles.heading}>Create a Spaceship</h1>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <input
