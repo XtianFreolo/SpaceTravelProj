@@ -3,11 +3,17 @@ import SpaceTravelMockApi from "../services/SpaceTravelMockApi";
 import PlanetCard from "../components/PlanetCard";
 import styles from "./PlanetsPage.module.css";
 
+
+
+
+
 const PlanetsPage = () => {
     const [planets, setPlanets] = useState([]);
     const [spacecrafts, setSpacecrafts] = useState([]);
     const [selectedPlanetId, setSelectedPlanetId] = useState(null);
     const [selectedShipId, setSelectedShipId] = useState(null);
+
+    // const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,8 +31,12 @@ const PlanetsPage = () => {
     const handleShipClick = async (shipId) => {
         if (selectedPlanetId == null) return;
 
+
         const ship = spacecrafts.find((s) => s.id === shipId);
         if (!ship || ship.currentLocation === selectedPlanetId) return;
+
+
+        // setLoading(true);
 
         const res = await SpaceTravelMockApi.sendSpacecraftToPlanet({
             spacecraftId: ship.id,
@@ -43,6 +53,8 @@ const PlanetsPage = () => {
         } else {
             alert(res.data.message || "Failed to move ship.");
         }
+
+        // setLoading(false);
     };
 
     return (
