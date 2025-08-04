@@ -93,20 +93,21 @@ const SpaceshipPage = () => {
 
             <h2 className={styles.heading}>My Spaceships</h2>
             <ul className={styles.spaceshipList}>
+
                 {spaceships.map((ship) => (
                     <li key={ship.id} className={styles.spaceshipCard}>
-                        <div>
-                            <p>
-                                <strong>{ship.name}</strong> – Capacity: {ship.capacity}
-                            </p>
-                            <p className={styles.description}>{ship.description}</p>
-                            {ship.pictureUrl && (
-                                <img
-                                    src={ship.pictureUrl}
-                                    alt={ship.name}
-                                    className={styles.image}
-                                />
-                            )}
+                        {ship.pictureUrl && (
+                            <img
+                                src={ship.pictureUrl}
+                                alt={ship.name}
+                                className={styles.image}
+                            />
+                        )}
+
+                        <div className={styles.shipInfo}>
+                            <h3>{ship.name}</h3>
+                            <p>Capacity: {ship.capacity}</p>
+                            <p>{ship.description}</p>
                         </div>
                         <button
                             onClick={() => handleDelete(ship.id)}
