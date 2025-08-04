@@ -1,15 +1,24 @@
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10rem;
-    justify-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5rem;
+    padding: 2rem;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+    padding-top: 6rem;
 }
 
 .planetCard {
-    width: 120px;
+    width: 180px;
     height: 120px;
+    padding: 1rem;
     border: 2px dotted #00ffff;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
@@ -26,27 +35,33 @@
 }
 
 .selected {
-    border-color: greenyellow;
+    border: 3px solid;
+    border-color: rgb(0, 255, 4);
 }
 
 .planetImage {
     width: 100%;
-    height: 150px;
+    height: 120px;
     object-fit: cover;
     border-radius: 8px;
+    margin-bottom: 0.5rem;
 }
 
 .info {
     text-align: center;
-    margin-top: 0.5rem;
+    color: white;
+    font-size: 0.9rem;
 }
 
 .shipStack {
-    margin-top: 0.5rem;
+
+    top: 8px;
+    right: 8px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.25rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+
 }
 
 .shipContainer {
@@ -60,5 +75,5 @@
 }
 
 .shipSelected {
-    outline: 4px solid greenyellow;
+    outline: 4px solid rgb(0, 255, 4);
 }

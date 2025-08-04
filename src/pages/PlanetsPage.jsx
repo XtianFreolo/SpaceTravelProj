@@ -46,28 +46,30 @@ const PlanetsPage = () => {
     };
 
     return (
-        <div className={styles.grid}>
-            {planets.map((planet) => {
-                const shipsOnThisPlanet = spacecrafts.filter(
-                    (ship) => ship.currentLocation === planet.id
-                );
+        <div className={styles.page}>
+            <div className={styles.grid}>
+                {planets.map((planet) => {
+                    const shipsOnThisPlanet = spacecrafts.filter(
+                        (ship) => ship.currentLocation === planet.id
+                    );
 
-                return (
-                    <PlanetCard
-                        key={planet.id}
-                        planet={planet}
-                        isSelected={selectedPlanetId === planet.id}
-                        onPlanetClick={() => {
-                            setSelectedPlanetId(planet.id);
-                            setSelectedShipId(null);
-                        }}
-                        ships={shipsOnThisPlanet}
-                        selectedShipId={selectedShipId}
-                        onShipSelect={setSelectedShipId}
-                        onShipMove={handleShipClick}
-                    />
-                );
-            })}
+                    return (
+                        <PlanetCard
+                            key={planet.id}
+                            planet={planet}
+                            isSelected={selectedPlanetId === planet.id}
+                            onPlanetClick={() => {
+                                setSelectedPlanetId(planet.id);
+                                setSelectedShipId(null);
+                            }}
+                            ships={shipsOnThisPlanet}
+                            selectedShipId={selectedShipId}
+                            onShipSelect={setSelectedShipId}
+                            onShipMove={handleShipClick}
+                        />
+                    );
+                })}
+            </div>
         </div>
     );
 };
